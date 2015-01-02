@@ -1,0 +1,115 @@
+var gulp          = require('gulp');
+var gutil         = require('gulp-util');
+var react         = require('gulp-react');
+var reload        = require('gulp-livereload');
+var sass          = require('gulp-ruby-sass');
+var lr            = require('koa-livereload');
+var clean         = require('rimraf');
+var runSequence   = require('run-sequence');
+var webpack       = require('webpack');
+var path          = require('path');
+var webpackConfig = require('./webpack.config.js');
+var server        = require('./src/server');
+var lrqueue       = [];
+var config        = {
+  env: {
+    port: 7000,
+    livereloadPort: 30000
+  },
+  src: {
+    static: [ 'src/**/*',
+              '!src/{jsx,jsx/**/*}',
+              '!src/{templates,templates/**/*}',
+              '!src/vendor/{materialize,materialize/**/*}',
+              '!src/server.js'],
+    jsx: 'src/jsx/**/*',
+    vendor: 'src/vendor/**/*',
+    templates: 'src/templates/**/*',
+    materialize: 'src/vendor/materialize'
+  },
+  dest: {
+    dir: 'dist',
+    vendor: 'dist/vendor',
+    materialize: 'dist/vendor/materialize'
+  }
+};
+
+gulp.task('clean', function (cb) {
+  clean.sync(config.dest.dir);
+  cb();
+});
+
+gulp.task('copy', function () {
+  return gulp.src(config.src.static)
+    .pipe(gulp.dest(config.dest.dir));
+});
+
+gulp.task('webpack', function (cb) {
+  webpack(webpackConfig, function () {
+    cb();
+  });
+});
+
+gulp.task('materialize-sass', function () {
+  return gulp.src(config.src.materialize + '/sass/materialize.scss')
+    .pipe(sass())
+    .pipe(gulp.dest(config.dest.materialize + '/css'));
+});
+
+gulp.task('materialize', function () {
+  return gulp.src(
+    [
+      '!' + config.src.materialize + '/{sass,sass/**/*}',
+      config.src.materialize + '/**/*'
+    ])
+    .pipe(gulp.dest(config.dest.materialize));
+});
+
+gulp.task('rebuild', ['clean', 'build']);
+
+gulp.task('build', ['webpack', 'materialize-sass', 'materialize', 'copy']);
+
+gulp.task('server', function () {
+  server.use(lr({ port: config.env.livereloadPort }));
+  server.listen(config.env.port, function () {
+    gutil.log(gutil.colors.yellow('Starting server at http://localhost:' + config.env.port));
+  });
+});
+
+gulp.task('watch', function () {
+  reload.listen(config.env.livereloadPort);
+
+  gulp.watch('./src/**/*.*').on('change', function (e) {
+    lrqueue.push(e.path);
+  });
+
+  gulp.watch(config.src.materialize + '/**/*', function () {
+    runSequence(['materialize-sass', 'materialize'], 'reload');
+  });
+
+  gulp.watch(config.src.jsx, function () {
+    runSequence('webpack', 'reload');
+  });
+
+  gulp.watch(config.src.templates, ['reload']);
+  gulp.watch(config.src.static, function () {
+    runSequence('copy', 'reload');
+  });
+});
+
+gulp.task('reload', function (cb) {
+  if (lrqueue.length > 0) {
+    var path = lrqueue.pop();
+    reload.changed(path);
+    lrqueue.length = 0;
+    gutil.log(gutil.colors.yellow(path.replace(__dirname, ''), 'has been changed. Rebuilding...'));
+  }
+  cb();
+});
+
+/**
+ * Starter Tasks
+ */
+gulp.task('dev', ['rebuild', 'watch', 'server']);
+
+gulp.task('prod', ['rebuild', 'server']);

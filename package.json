@@ -1,0 +1,33 @@
+{
+  "name": "TH",
+  "version": "0.0.1",
+  "description": "Tim Hanum's Early Programming Learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Jason Jung",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-livereload": "^3.0.2",
+    "gulp-react": "^2.0.0",
+    "gulp-util": "^3.0.1",
+    "gulp-webpack": "^1.1.1",
+    "jsx-loader": "^0.12.2",
+    "koa-livereload": "^0.1.23",
+    "webpack": "^1.4.13"
+  },
+  "dependencies": {
+    "gulp-ruby-sass": "^0.7.1",
+    "koa": "^0.13.0",
+    "koa-livereload": "^0.1.23",
+    "koa-router": "^3.8.0",
+    "koa-static": "^1.4.8",
+    "mustache": "^1.0.0",
+    "node-jsx": "^0.12.4",
+    "react": "^0.12.1",
+    "rimraf": "^2.2.8",
+    "run-sequence": "^1.0.2"
+  }
+}

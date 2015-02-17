@@ -1,5 +1,5 @@
-# Americano - Web Project Template
-Americano is a simple web project boilerplate based on [React](http://facebook.github.io/react), [Koa](http://koajs.com/), [Gulp](http://gulpjs.com/), [webpack](http://webpack.github.io/), and [Sass](http://sass-lang.com/).
+# React Starter - Web Project Template
+React Starter is a simple web project boilerplate based on [React](http://facebook.github.io/react), [Koa](http://koajs.com/), [Gulp](http://gulpjs.com/), [webpack](http://webpack.github.io/), and [Sass](http://sass-lang.com/).
 
 ## Getting started
 

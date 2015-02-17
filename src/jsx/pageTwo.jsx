@@ -1,5 +1,4 @@
 var React = require('React');
-var Link = require('react-router-component').Link
 
 var Body = React.createClass({
   componentDidMount: function () {
@@ -8,9 +7,9 @@ var Body = React.createClass({
   render: function () {
     return (
       <div className="container content">
-        <h4>Home Main</h4>
-        <p>{"Home page"}</p>
-        <Link href="/pagetwo">Page Two</Link>
+        <h4>Page Two</h4>
+        <p>{"Second page"}</p>
+
       </div>
     );
   }

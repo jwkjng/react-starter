@@ -2,12 +2,13 @@
  * Initialization steps
  */
 var React = require('react');
-var app = React.createFactory(require('./jsx'));
+var routes = require('./routes');
+// var app = React.createFactory(require('./jsx'));
 
 if (typeof window !== 'undefined') {
   window.onload = function() {
-    React.render(app(), document.getElementById('main'));
+    React.render(routes(), document.getElementById('main'));
   }
 }
 
-module.exports = app;
+module.exports = routes;

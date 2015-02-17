@@ -376,7 +376,7 @@ $colors: (
     @else {
       .#{$color_name}.#{$color_type} {
         background-color: $color_value !important;
-      }      
+      }
       .#{$color_name}-text.text-#{$color_type} {
         color: $color_value !important;
       }
@@ -408,4 +408,3 @@ $colors: (
   @warn "Unknown `#{name}` in $colors.";
   @return null;
 }
-

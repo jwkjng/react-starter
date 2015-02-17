@@ -3,7 +3,7 @@
   display: inline-block;
   height: $button-height;
   margin-bottom: 15px;
-  padding: 0 2rem; 
+  padding: 0 2rem;
   @include border-radius(2px);
   line-height: $button-line-height;
   text-transform: uppercase;
@@ -35,7 +35,7 @@
   background-color: $button-color;
   text-align: center;
   letter-spacing: .8px;
-  @extend .z-depth-1; 
+  @extend .z-depth-1;
   @include transition(.2s ease-out);
   cursor: pointer;
 
@@ -45,7 +45,7 @@
   }
 }
 
-// Floating button 
+// Floating button
 .btn-floating {
   display: inline-block;
   position: relative;
@@ -56,7 +56,7 @@
   padding: 0;
   background-color: $button-color;
   @include border-radius(50%);
-  @extend .z-depth-1;  
+  @extend .z-depth-1;
   @include transition(.3s);
   cursor: pointer;
 
@@ -68,7 +68,7 @@
     font-size: 1.6rem;
     line-height: $button-floating-size;
   }
-  
+
   &:hover {
     @extend .z-depth-1-half;
   }
@@ -103,5 +103,3 @@
     font-size: 1.6rem;
   }
 }
-
-

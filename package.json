@@ -15,7 +15,6 @@
     "gulp-util": "^3.0.1",
     "gulp-webpack": "^1.1.1",
     "jsx-loader": "^0.12.2",
-    "koa-livereload": "^0.1.23",
     "webpack": "^1.4.13"
   },
   "dependencies": {
